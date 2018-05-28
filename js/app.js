@@ -1,16 +1,18 @@
-const allCards = document.querySelectorAll('.card');
-
-allCards.forEach(function(card) {
-  card.addEventListener('click', function(c) {
-    card.classList.add('open', 'show');
-  });
-});
 
 
 /*
  * Create a list that holds all of your cards
  */
 
+ const cards = ['fa-diamond', 'fa-diamond',
+                  'fa-paper-plane-o', 'fa-paper-plane-o',
+                  'fa-anchor', 'fa-anchor',
+                  'fa-bolt', 'fa-bolt',
+                  'fa-cube', 'fa-cube',
+                  'fa-leaf', 'fa-leaf',
+                  'fa-bicycle', 'fa-bicycle',
+                  'fa-bomb', 'fa-bomb'
+                 ]
 
 /*
  * Display the cards on the page
@@ -34,7 +36,6 @@ function shuffle(array) {
     return array;
 }
 
-
 /*
  * set up the event listener for a card. If a card is clicked:
  *  - display the card's symbol (put this functionality in another function that you call from this one)
@@ -45,3 +46,37 @@ function shuffle(array) {
  *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
+
+ function generateCard(card) {
+   return `<li class="card"><i class="fa ${card}"></i></li>`;
+ }
+
+ function startGame() {
+   var deck = document.querySelector('.deck');
+   var cardHTML = shuffle(cards).map(function(card) {
+     return generateCard(card);
+   });
+
+   deck.innerHTML = cardHTML.join('');
+ }
+
+ startGame();
+
+ const allCards = document.querySelectorAll('.card');
+ let openCards = [];
+
+ allCards.forEach(function(card) {
+   card.addEventListener('click', function(e) {
+     console.log(openCards.length);
+       if (openCards.length == 2) {
+
+       } else {
+         showCard(card);
+         openCards.push(card);
+     }
+   });
+ });
+
+ function showCard(e) {
+  e.classList.add('open', 'show');
+ }

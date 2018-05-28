@@ -1,3 +1,12 @@
+const allCards = document.querySelectorAll('.card');
+
+allCards.forEach(function(card) {
+  card.addEventListener('click', function(c) {
+    card.classList.add('open', 'show');
+  });
+});
+
+
 /*
  * Create a list that holds all of your cards
  */

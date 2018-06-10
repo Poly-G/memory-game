@@ -8,9 +8,9 @@
 
  /*
   * Display the cards on the page
-  *   - shuffle the list of cards using the provided "shuffle" method below
-  *   - loop through each card and create its HTML
-  *   - add each card's HTML to the page
+  *   ^ shuffle the list of cards using the provided "shuffle" method below
+  *   ^ loop through each card and create its HTML
+  *   ^ add each card's HTML to the page
   */
 
   /*
@@ -40,6 +40,7 @@ function shuffle(array) {
   return array;
 }
 
+// generates the cards
 const cards = [ 'fa-diamond', 'fa-diamond',
                 'fa-paper-plane-o', 'fa-paper-plane-o',
                 'fa-anchor', 'fa-anchor',
@@ -54,23 +55,34 @@ function generateCard(card) {
 return `<li class="card" data-card="${card}"><i class="fa ${card}"></i></li>`;
 }
 
+let moves = document.querySelector('.moves');
+let actualMoves = 0;
+
+
+//start game
 function initGame() {
   let deck = document.querySelector('.deck');
   let cardHTML = shuffle(cards).map(function(card) {
     return generateCard(card);
   });
   deck.innerHTML = cardHTML.join('');
+  
 }
 
 initGame();
 
-let moves = document.querySelector('.moves');
-let actualMoves = 0;
+
 const allCards = document.querySelectorAll('.card');
 let openCards = [];
 
 function showCard(e) {
   e.classList.add('open', 'show');
+}
+
+// remove star
+function moveStars () {
+  const stars = document.querySelector(".fa-star");
+  stars.parentNode.removeChild(stars); 
 }
 
 
@@ -82,7 +94,7 @@ allCards.forEach(function(card) {
       showCard(card);
 
 
-
+      
       if (openCards.length == 2) {
         if (openCards[0].dataset.card == openCards[1].dataset.card) {
             openCards[0].classList.add('match');
@@ -101,9 +113,11 @@ allCards.forEach(function(card) {
             });
 
             openCards = [];
-          }, 1000);
+          }, 700);
         }
 
+        moveStars();
+        console.log(actualMoves);
         actualMoves ++;
         moves.innerHTML = `<span class="moves">${actualMoves}</span>`;
       }
@@ -112,51 +126,3 @@ allCards.forEach(function(card) {
 
 });
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//makemelifeeasier

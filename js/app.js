@@ -51,12 +51,29 @@ const cards = [ 'fa-diamond', 'fa-diamond',
                 'fa-bomb', 'fa-bomb'
               ]
 
+// creates the card list
 function generateCard(card) {
 return `<li class="card" data-card="${card}"><i class="fa ${card}"></i></li>`;
 }
 
+
 let moves = document.querySelector('.moves');
 let actualMoves = 0;
+
+// start timer
+function startTimer (){
+  let time = 0;
+  let timer = setInterval(function(){
+    time++;
+    console.log(time);
+  }, 1000);
+};
+
+// clear timer
+function clearTimer (){
+  clearInterval(timer);
+};
+
 
 
 //start game
@@ -65,6 +82,7 @@ function initGame() {
   let cardHTML = shuffle(cards).map(function(card) {
     return generateCard(card);
   });
+  
   deck.innerHTML = cardHTML.join('');
   
 }
@@ -79,7 +97,7 @@ function showCard(e) {
   e.classList.add('open', 'show');
 }
 
-// remove star
+// removes stars
 function removeStars() {
   const stars = document.querySelectorAll('.fa-star');
   if (actualMoves === 15) {
@@ -93,14 +111,12 @@ function removeStars() {
 
 
 
-
 allCards.forEach(function(card) {
   card.addEventListener('click', function(e) {
 
     if(!card.classList.contains('open') && !card.classList.contains('show') && !card.classList.contains('match')) {
       openCards.push(card);
       showCard(card);
-
 
       
       if (openCards.length == 2) {
@@ -123,7 +139,7 @@ allCards.forEach(function(card) {
             openCards = [];
           }, 700);
         }
-
+        startTimer ()
         removeStars();
         console.log(actualMoves);
         actualMoves ++;

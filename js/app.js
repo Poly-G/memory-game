@@ -80,11 +80,16 @@ function showCard(e) {
 }
 
 // remove star
-function moveStars() {
+function removeStars() {
   const stars = document.querySelectorAll('.fa-star');
-  if (actualMoves === 5) {
+  if (actualMoves === 7) {
+    stars[0].remove();
+  } if (actualMoves === 9) {
+    stars[0].remove();
+  } else if (actualMoves === 11) {
     stars[0].remove();
   }
+
 }
 
 
@@ -118,7 +123,7 @@ allCards.forEach(function(card) {
           }, 700);
         }
 
-        moveStars();
+        removeStars();
         console.log(actualMoves);
         actualMoves ++;
         moves.innerHTML = `<span class="moves">${actualMoves}</span>`;

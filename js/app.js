@@ -80,9 +80,11 @@ function showCard(e) {
 }
 
 // remove star
-function moveStars () {
-  const stars = document.querySelector(".fa-star");
-  stars.parentNode.removeChild(stars); 
+function moveStars() {
+  const stars = document.querySelectorAll('.fa-star');
+  if (actualMoves === 5) {
+    stars[0].remove();
+  }
 }
 
 

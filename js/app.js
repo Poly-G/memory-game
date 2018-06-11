@@ -82,15 +82,16 @@ function showCard(e) {
 // remove star
 function removeStars() {
   const stars = document.querySelectorAll('.fa-star');
-  if (actualMoves === 7) {
+  if (actualMoves === 15) {
     stars[0].remove();
-  } if (actualMoves === 9) {
+  } if (actualMoves === 22) {
     stars[0].remove();
-  } else if (actualMoves === 11) {
+  } else if (actualMoves === 30) {
     stars[0].remove();
   }
-
 }
+
+
 
 
 allCards.forEach(function(card) {

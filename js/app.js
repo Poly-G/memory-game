@@ -49,16 +49,22 @@ const cards = [ 'fa-diamond', 'fa-diamond',
                 'fa-leaf', 'fa-leaf',
                 'fa-bicycle', 'fa-bicycle',
                 'fa-bomb', 'fa-bomb'
-              ]
+]
+
+let moves = document.querySelector('.moves');
+let actualMoves = 0;
+const restart = document.querySelector('.restart');
+
+restart.addEventListener('click', function (){
+  location.reload();
+})
+
 
 // creates the card list
 function generateCard(card) {
 return `<li class="card" data-card="${card}"><i class="fa ${card}"></i></li>`;
 }
 
-
-let moves = document.querySelector('.moves');
-let actualMoves = 0;
 
 // start timer
 function startTimer (){
@@ -73,8 +79,6 @@ function startTimer (){
 function clearTimer (){
   clearInterval(timer);
 };
-
-
 
 //start game
 function initGame() {

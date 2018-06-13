@@ -2,8 +2,10 @@
  * Tutorial provided by Mike Wales via https://www.youtube.com/watch?reload=9&reload=9&v=_rUH-sEs68Y&app=desktop
  */
 
-
-
+// variables
+let moves = document.querySelector('.moves');
+let actualMoves = 0;
+const restart = document.querySelector('.restart');
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
@@ -21,6 +23,11 @@ function shuffle(array) {
   return array;
 }
 
+// creates the card list
+function generateCard(card) {
+  return `<li class="card" data-card="${card}"><i class="fa ${card}"></i></li>`;
+  }
+
 // generates the cards
 const cards = [ 'fa-diamond', 'fa-diamond',
                 'fa-paper-plane-o', 'fa-paper-plane-o',
@@ -32,21 +39,20 @@ const cards = [ 'fa-diamond', 'fa-diamond',
                 'fa-bomb', 'fa-bomb'
 ]
 
-let moves = document.querySelector('.moves');
-let actualMoves = 0;
-const restart = document.querySelector('.restart');
 
-restart.addEventListener('click', function (){
-  location.reload();
-})
-
-
-// creates the card list
-function generateCard(card) {
-return `<li class="card" data-card="${card}"><i class="fa ${card}"></i></li>`;
+// generate game
+function initGame() {
+  let deck = document.querySelector('.deck');
+  let cardHTML = shuffle(cards).map(function(card) {
+    return generateCard(card);
+  });
+  deck.innerHTML = cardHTML.join('');
+  
 }
+initGame();
 
-//stack overflow (https://stackoverflow.com/questions/5517597/plain-count-up-timer-in-javascript?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa)
+
+//stack overflow timer (https://bit.ly/2t5NjIG)
 const minutes = document.querySelector("#minutes")
     const seconds = document.querySelector("#seconds")
     let count = 0;
@@ -56,7 +62,7 @@ const minutes = document.querySelector("#minutes")
       minutes.innerHTML = Math.floor(count / 60).toString().padStart(2, "0");
       seconds.innerHTML = (count % 60).toString().padStart(2, "0");
     }
-
+    // call this when game starts
     const timer = setInterval(renderTimer, 1000)
 
 
@@ -65,24 +71,21 @@ function clearTimer (){
   clearInterval(timer);
 };
 
-//start game
-function initGame() {
-  let deck = document.querySelector('.deck');
-  let cardHTML = shuffle(cards).map(function(card) {
-    return generateCard(card);
-  });
-  deck.innerHTML = cardHTML.join('');
-  
-}
 
-initGame();
-
-
-const allCards = document.querySelectorAll('.card');
-let openCards = [];
-
+// flip card function
 function showCard(e) {
   e.classList.add('open', 'show');
+}
+
+// if cards dont match hide them
+function matchingCards () {
+  setTimeout(function(){
+    openCards.forEach(function(card){
+      card.classList.remove('open', 'show');
+    });
+
+    openCards = [];
+  }, 700);
 }
 
 // removes stars
@@ -97,7 +100,14 @@ function removeStars() {
   }
 }
 
+// restart button refreshes the page
+restart.addEventListener('click', function (){
+  location.reload();
+})
 
+// listener
+const allCards = document.querySelectorAll('.card');
+let openCards = [];
 
 allCards.forEach(function(card) {
   card.addEventListener('click', function(e) {
@@ -118,14 +128,7 @@ allCards.forEach(function(card) {
             openCards[1].classList.add('show');
             openCards = [];
         } else {
-            // if cards dont match - go away
-            setTimeout(function(){
-            openCards.forEach(function(card){
-              card.classList.remove('open', 'show');
-            });
-
-            openCards = [];
-          }, 700);
+            matchingCards ()
         }
         removeStars();
         actualMoves ++;

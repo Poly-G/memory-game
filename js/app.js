@@ -5,7 +5,13 @@
 // variables
 let moves = document.querySelector('.moves');
 let actualMoves = 0;
+let count = 0;
+
 const restart = document.querySelector('.restart');
+const deck = document.querySelector('.deck');
+const minutes = document.querySelector("#minutes")
+const seconds = document.querySelector("#seconds")
+const match = document.querySelectorAll(".match")
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
@@ -52,29 +58,23 @@ function initGame() {
 initGame();
 
 
-//stack overflow timer (https://bit.ly/2t5NjIG)
-const minutes = document.querySelector("#minutes")
-    const seconds = document.querySelector("#seconds")
-    let count = 0;
-
-    const renderTimer = () => {
-      count += 1;
-      minutes.innerHTML = Math.floor(count / 60).toString().padStart(2, "0");
-      seconds.innerHTML = (count % 60).toString().padStart(2, "0");
-    }
-    // call this when game starts
-    const timer = setInterval(renderTimer, 1000)
-
-
-// clear timer
-function clearTimer (){
-  clearInterval(timer);
-};
-
-
 // flip card function
 function showCard(e) {
   e.classList.add('open', 'show');
+}
+
+
+
+// removes stars
+function removeStars() {
+  const stars = document.querySelectorAll('.fa-star');
+  if (actualMoves === 15) {
+    stars[0].remove();
+  } if (actualMoves === 22) {
+    stars[0].remove();
+  } else if (actualMoves === 30) {
+    stars[0].remove();
+  }
 }
 
 // if cards dont match hide them
@@ -88,17 +88,24 @@ function matchingCards () {
   }, 700);
 }
 
-// removes stars
-function removeStars() {
-  const stars = document.querySelectorAll('.fa-star');
-  if (actualMoves === 15) {
-    stars[0].remove();
-  } if (actualMoves === 22) {
-    stars[0].remove();
-  } else if (actualMoves === 30) {
-    stars[0].remove();
-  }
+//stack overflow timer (https://bit.ly/2t5NjIG)
+const renderTimer = () => {
+  count += 1;
+  minutes.innerHTML = Math.floor(count / 60).toString().padStart(2, "0");
+  seconds.innerHTML = (count % 60).toString().padStart(2, "0");
 }
+// call this when game starts
+function timer () {
+setInterval(renderTimer, 1000);
+}
+
+timer ();
+
+
+// clear timer
+function clearTimer (){
+clearInterval(timer);
+};
 
 // restart button refreshes the page
 restart.addEventListener('click', function (){
@@ -130,6 +137,7 @@ allCards.forEach(function(card) {
         } else {
             matchingCards ()
         }
+        console.log(match);
         removeStars();
         actualMoves ++;
         moves.innerHTML = `<span class="moves">${actualMoves}</span>`;
@@ -138,9 +146,6 @@ allCards.forEach(function(card) {
   });
 
 });
-
-
-
 
   /*
    * set up the event listener for a card. If a card is clicked:

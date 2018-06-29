@@ -111,3 +111,38 @@ h1 {
 .timer {
     margin-left: 30%;
 }
+
+.modal{
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.3)
+}
+
+.modal-content {
+    
+    background-color: white;
+    margin: 15% auto;
+    padding: 20px;
+    width: 70%;
+    box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2),
+    0 7px 20px 0 rgba(0, 0, 0, 0.17);
+}
+
+.xbutton {
+    float: right;
+    font-size: 30px;
+    margin: 0;
+    color: #67BEBD;
+    cursor: pointer;
+}
+
+.xbutton:hover {
+    color: #9590C5;
+    text-decoration: none;
+}

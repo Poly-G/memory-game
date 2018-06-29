@@ -9,9 +9,41 @@ let count = 0;
 
 const restart = document.querySelector('.restart');
 const deck = document.querySelector('.deck');
-const minutes = document.querySelector("#minutes")
-const seconds = document.querySelector("#seconds")
-const match = document.querySelectorAll(".match")
+const minutes = document.querySelector("#minutes");
+const seconds = document.querySelector("#seconds");
+const match = document.querySelectorAll(".match");
+const open = document.getElementById('open'); 
+const xbutton = document.querySelector('.xbutton');
+const modal = document.querySelector('.modal');
+
+
+
+// open button
+open.addEventListener('click', openModal);
+
+// exit modal
+xbutton.addEventListener('click', closeModal);
+
+// listen for modal outside click
+window.addEventListener('click', outsideClick);
+
+function openModal() {
+  modal.style.display = 'block';
+}
+
+//function to close modal with clicking x
+function closeModal() {
+  modal.style.display = 'none';
+}
+
+//function to close modal with outside click
+function outsideClick(e){
+  if (e.target == modal){
+  modal.style.display = 'none';
+  }
+}
+
+
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
@@ -94,7 +126,7 @@ const renderTimer = () => {
   minutes.innerHTML = Math.floor(count / 60).toString().padStart(2, "0");
   seconds.innerHTML = (count % 60).toString().padStart(2, "0");
 }
-// call this when game starts
+// function that starts timer
 function timer () {
 setInterval(renderTimer, 1000);
 }
@@ -104,7 +136,7 @@ timer ();
 
 // clear timer
 function clearTimer (){
-clearInterval(timer);
+clearInterval(renderTimer);
 };
 
 // restart button refreshes the page

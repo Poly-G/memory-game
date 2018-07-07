@@ -15,6 +15,7 @@ const match = document.querySelectorAll(".match");
 const open = document.getElementById('open'); 
 const xbutton = document.querySelector('.xbutton');
 const modal = document.querySelector('.modal');
+const playAgainButton = document.querySelector('.play-again');
 
 
 
@@ -26,6 +27,9 @@ xbutton.addEventListener('click', closeModal);
 
 // listen for modal outside click
 window.addEventListener('click', outsideClick);
+
+// play again button
+playAgainButton.addEventListener('click', playAgain);
 
 function openModal() {
   modal.style.display = 'block';
@@ -41,6 +45,11 @@ function outsideClick(e){
   if (e.target == modal){
   modal.style.display = 'none';
   }
+}
+
+// function to reload page on play again
+function playAgain() {
+  location.reload();
 }
 
 
@@ -139,6 +148,8 @@ function clearTimer (){
 clearInterval(renderTimer);
 };
 
+var numOfmatches = 0;
+
 // restart button refreshes the page
 restart.addEventListener('click', function (){
   location.reload();
@@ -154,7 +165,7 @@ allCards.forEach(function(card) {
     if(!card.classList.contains('open') && !card.classList.contains('show') && !card.classList.contains('match')) {
       openCards.push(card);
       showCard(card);
-
+      numOfmatches +=1;
       
       if (openCards.length == 2) {
         if (openCards[0].dataset.card == openCards[1].dataset.card) {
@@ -169,7 +180,6 @@ allCards.forEach(function(card) {
         } else {
             matchingCards ()
         }
-        console.log(match);
         removeStars();
         actualMoves ++;
         moves.innerHTML = `<span class="moves">${actualMoves}</span>`;
@@ -178,7 +188,7 @@ allCards.forEach(function(card) {
   });
 
 });
-
+console.log(numOfmatches);
   /*
    * set up the event listener for a card. If a card is clicked:
    *  - display the card's symbol (put this functionality in another function that you call from this one)

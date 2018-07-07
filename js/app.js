@@ -18,42 +18,6 @@ const modal = document.querySelector('.modal');
 const playAgainButton = document.querySelector('.play-again');
 
 
-
-// open button
-open.addEventListener('click', openModal);
-
-// exit modal
-xbutton.addEventListener('click', closeModal);
-
-// listen for modal outside click
-window.addEventListener('click', outsideClick);
-
-// play again button
-playAgainButton.addEventListener('click', playAgain);
-
-function openModal() {
-  modal.style.display = 'block';
-}
-
-//function to close modal with clicking x
-function closeModal() {
-  modal.style.display = 'none';
-}
-
-//function to close modal with outside click
-function outsideClick(e){
-  if (e.target == modal){
-  modal.style.display = 'none';
-  }
-}
-
-// function to reload page on play again
-function playAgain() {
-  location.reload();
-}
-
-
-
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
   var currentIndex = array.length,
@@ -130,23 +94,33 @@ function matchingCards () {
 }
 
 //stack overflow timer (https://bit.ly/2t5NjIG)
-const renderTimer = () => {
-  count += 1;
-  minutes.innerHTML = Math.floor(count / 60).toString().padStart(2, "0");
-  seconds.innerHTML = (count % 60).toString().padStart(2, "0");
+function pad(val) {
+  valString = val + "";
+  if (valString.length < 2) {
+    return "0" + valString;
+  } else {
+    return valString;
+  }
 }
-// function that starts timer
-function timer () {
-setInterval(renderTimer, 1000);
+
+totalSeconds = 0;
+function setTime(minutesLabel, secondsLabel) {
+  totalSeconds++;
+  secondsLabel.innerHTML = pad(totalSeconds % 60);
+  minutesLabel.innerHTML = pad(parseInt(totalSeconds / 60));
 }
 
-timer ();
+function startTimer() {
+  minutesLabel = document.getElementById("minutes");
+  secondsLabel = document.getElementById("seconds");
+  my_int = setInterval(function () { setTime(minutesLabel, secondsLabel) }, 1000);
+}
 
+function stopTimer() {
+  clearInterval(my_int);
+}
 
-// clear timer
-function clearTimer (){
-clearInterval(renderTimer);
-};
+startTimer();
 
 var numOfmatches = 0;
 
@@ -154,6 +128,43 @@ var numOfmatches = 0;
 restart.addEventListener('click', function (){
   location.reload();
 })
+
+// open button
+open.addEventListener('click', openModal);
+
+// exit modal
+xbutton.addEventListener('click', closeModal);
+
+// listen for modal outside click
+window.addEventListener('click', outsideClick);
+
+// play again button
+playAgainButton.addEventListener('click', playAgain);
+
+// Open Modal
+function openModal() {
+  modal.style.display = 'block';
+  stopTimer();
+}
+
+//function to close modal with clicking x
+function closeModal() {
+  modal.style.display = 'none';
+  startTimer();
+}
+
+//function to close modal with outside click
+function outsideClick(e) {
+  if (e.target == modal) {
+    modal.style.display = 'none';
+    startTimer();
+  }
+}
+
+// function to reload page on play again
+function playAgain() {
+  location.reload();
+}
 
 // listener
 const allCards = document.querySelectorAll('.card');
@@ -181,6 +192,7 @@ allCards.forEach(function(card) {
             console.log(numOfmatches);
             if (numOfmatches == 8) {
               openModal();
+              
             }
 
         } else {

@@ -165,7 +165,6 @@ allCards.forEach(function(card) {
     if(!card.classList.contains('open') && !card.classList.contains('show') && !card.classList.contains('match')) {
       openCards.push(card);
       showCard(card);
-      numOfmatches +=1;
       
       if (openCards.length == 2) {
         if (openCards[0].dataset.card == openCards[1].dataset.card) {
@@ -177,6 +176,13 @@ allCards.forEach(function(card) {
             openCards[1].classList.add('open');
             openCards[1].classList.add('show');
             openCards = [];
+            
+            numOfmatches += 1;
+            console.log(numOfmatches);
+            if (numOfmatches == 8) {
+              openModal();
+            }
+
         } else {
             matchingCards ()
         }

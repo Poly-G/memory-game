@@ -172,6 +172,10 @@ let openCards = [];
 allCards.forEach(function(card) {
   card.addEventListener('click', function(e) {
 
+    if (isAnimating == true) {
+      return;
+    }
+
     if (!card.classList.contains('open') && !card.classList.contains('show') && !card.classList.contains('match')) {
       openCards.push(card);
       showCard(card);

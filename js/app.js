@@ -196,7 +196,7 @@ allCards.forEach(function(card) {
             if (numOfmatches == 8) {
               openModal();
               stopTimer();
-              modalMoves.innerHTML = `<span class="modalMoves">${actualMoves}</span>`;
+              modalMoves.innerHTML = `<span class="modalMoves">${actualMoves + 1}</span>`;
             }
 
         } else {

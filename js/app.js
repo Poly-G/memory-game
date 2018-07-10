@@ -7,6 +7,7 @@ let moves = document.querySelector('.moves');
 let actualMoves = 0;
 let numOfmatches = 0;
 let count = 0;
+let isAnimating = false;
 
 const restart = document.querySelector('.restart');
 const deck = document.querySelector('.deck');
@@ -17,6 +18,9 @@ const open = document.getElementById('open');
 const xbutton = document.querySelector('.xbutton');
 const modal = document.querySelector('.modal');
 const playAgainButton = document.querySelector('.play-again');
+const modalMoves = document.querySelector('.modalMoves');
+const modalTime = document.querySelector('.modalTime');
+const modalStars = document.querySelector('.modalStars');
 
 
 // Shuffle function from http://stackoverflow.com/a/2450976
@@ -85,11 +89,13 @@ function removeStars() {
 
 // if cards dont match hide them
 function matchingCards () {
+  isAnimating = true;
   setTimeout(function(){
     openCards.forEach(function(card){
       card.classList.remove('open', 'show');
     });
 
+    isAnimating = false;
     openCards = [];
   }, 700);
 }
@@ -127,9 +133,6 @@ startTimer();
 restart.addEventListener('click', function (){
   location.reload();
 })
-
-// open button
-open.addEventListener('click', openModal);
 
 // exit modal
 xbutton.addEventListener('click', closeModal);
@@ -169,7 +172,7 @@ let openCards = [];
 allCards.forEach(function(card) {
   card.addEventListener('click', function(e) {
 
-    if(!card.classList.contains('open') && !card.classList.contains('show') && !card.classList.contains('match')) {
+    if (!card.classList.contains('open') && !card.classList.contains('show') && !card.classList.contains('match')) {
       openCards.push(card);
       showCard(card);
       
@@ -189,6 +192,7 @@ allCards.forEach(function(card) {
             if (numOfmatches == 8) {
               openModal();
               stopTimer();
+              modalMoves.innerHTML = `<span class="modalMoves">${actualMoves}</span>`;
             }
 
         } else {
@@ -202,6 +206,8 @@ allCards.forEach(function(card) {
   });
 
 });
+
+
   /*
    * set up the event listener for a card. If a card is clicked:
    *  - display the card's symbol (put this functionality in another function that you call from this one)

@@ -1,5 +1,9 @@
 /*
- * Tutorial provided by Mike Wales via https://www.youtube.com/watch?reload=9&reload=9&v=_rUH-sEs68Y&app=desktop
+ * Tutorial provided by Mike Wales via https: //bit.ly/2N7ew6b
+ */
+
+/*
+ * Modal tutorial provided by Traversy Media via https: //bit.ly/2zp0Am3
  */
 
 // variables
@@ -8,6 +12,7 @@ let actualMoves = 0;
 let numOfmatches = 0;
 let count = 0;
 let isAnimating = false;
+
 
 const restart = document.querySelector('.restart');
 const deck = document.querySelector('.deck');
@@ -78,13 +83,13 @@ function showCard(e) {
 // removes stars
 function removeStars() {
   const stars = document.querySelectorAll('.fa-star');
-  if (actualMoves === 15) {
-    stars[0].remove();
-  } if (actualMoves === 22) {
-    stars[0].remove();
-  } else if (actualMoves === 30) {
-    stars[0].remove();
-  }
+    if (actualMoves === 15) {
+      stars[0].remove();
+    } if (actualMoves === 22) {
+      stars[0].remove();
+    } else if (actualMoves === 30) {
+      stars[0].remove();
+    }
 }
 
 // if cards dont match hide them
@@ -143,17 +148,17 @@ window.addEventListener('click', outsideClick);
 // play again button
 playAgainButton.addEventListener('click', playAgain);
 
-// Open Modal
+// open Modal
 function openModal() {
   modal.style.display = 'block';
 }
 
-//function to close modal with clicking x
+// function to close modal with clicking x
 function closeModal() {
   modal.style.display = 'none';
 }
 
-//function to close modal with outside click
+// function to close modal with outside click
 function outsideClick(e) {
   if (e.target == modal) {
     modal.style.display = 'none';
@@ -168,6 +173,15 @@ function playAgain() {
 // listener
 const allCards = document.querySelectorAll('.card');
 let openCards = [];
+
+
+function endGame () {
+  if (numOfmatches == 8) {
+              openModal();
+              stopTimer();
+              modalMoves.innerHTML = `<span class="modalMoves">${actualMoves + 1}</span>`;
+            }
+}
 
 allCards.forEach(function(card) {
   card.addEventListener('click', function(e) {
@@ -192,19 +206,14 @@ allCards.forEach(function(card) {
             openCards = [];
             
             numOfmatches += 1;
-            console.log(numOfmatches);
-            if (numOfmatches == 8) {
-              openModal();
-              stopTimer();
-              modalMoves.innerHTML = `<span class="modalMoves">${actualMoves + 1}</span>`;
-            }
+            endGame();
 
         } else {
             matchingCards ()
         }
-        removeStars();
         actualMoves ++;
         moves.innerHTML = `<span class="moves">${actualMoves}</span>`;
+        removeStars();
       }
     }
   });

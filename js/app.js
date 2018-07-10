@@ -5,6 +5,7 @@
 // variables
 let moves = document.querySelector('.moves');
 let actualMoves = 0;
+let numOfmatches = 0;
 let count = 0;
 
 const restart = document.querySelector('.restart');
@@ -122,8 +123,6 @@ function stopTimer() {
 
 startTimer();
 
-var numOfmatches = 0;
-
 // restart button refreshes the page
 restart.addEventListener('click', function (){
   location.reload();
@@ -144,20 +143,17 @@ playAgainButton.addEventListener('click', playAgain);
 // Open Modal
 function openModal() {
   modal.style.display = 'block';
-  stopTimer();
 }
 
 //function to close modal with clicking x
 function closeModal() {
   modal.style.display = 'none';
-  startTimer();
 }
 
 //function to close modal with outside click
 function outsideClick(e) {
   if (e.target == modal) {
     modal.style.display = 'none';
-    startTimer();
   }
 }
 
@@ -192,7 +188,7 @@ allCards.forEach(function(card) {
             console.log(numOfmatches);
             if (numOfmatches == 8) {
               openModal();
-              
+              stopTimer();
             }
 
         } else {
@@ -206,7 +202,6 @@ allCards.forEach(function(card) {
   });
 
 });
-console.log(numOfmatches);
   /*
    * set up the event listener for a card. If a card is clicked:
    *  - display the card's symbol (put this functionality in another function that you call from this one)

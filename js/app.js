@@ -134,6 +134,8 @@ function stopTimer() {
   clearInterval(my_int);
 }
 
+
+
 startTimer();
 
 // restart button refreshes the page
@@ -181,7 +183,9 @@ function endGame () {
   if (numOfmatches == 8) {
               openModal();
               stopTimer();
+              let modalTimer = pad(parseInt(totalSeconds / 60)) + ":" + pad(totalSeconds % 60);
               modalMoves.innerHTML = `<span class="modalMoves">${actualMoves + 1}</span>`;
+              modalTime.innerHTML = `<span class="modalTime">${modalTimer}</span>`;
             }
 }
 
@@ -216,8 +220,6 @@ allCards.forEach(function(card) {
         actualMoves ++;
         moves.innerHTML = `<span class="moves">${actualMoves}</span>`;
         removeStars();
-        document.getElementById("starRating").innerHTML = starRating;
-        console.log(starRating);
       }
     }
   });

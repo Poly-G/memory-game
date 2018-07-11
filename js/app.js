@@ -12,7 +12,6 @@ let actualMoves = 0;
 let numOfmatches = 0;
 let count = 0;
 let isAnimating = false;
-let totalStars = 0;
 
 
 const restart = document.querySelector('.restart');
@@ -27,7 +26,7 @@ const playAgainButton = document.querySelector('.play-again');
 const modalMoves = document.querySelector('.modalMoves');
 const modalTime = document.querySelector('.modalTime');
 const modalStars = document.querySelector('.modalStars');
-const starRating = document.querySelectorAll("stars").innerHTML;
+
 
 
 // Shuffle function from http://stackoverflow.com/a/2450976
@@ -84,7 +83,7 @@ function showCard(e) {
 
 // removes stars
 function removeStars() {
-  const stars = document.querySelectorAll('.fa-star');
+  let stars = document.querySelectorAll('.fa-star');
     if (actualMoves === 15) {
       stars[0].remove();
     } if (actualMoves === 22) {
@@ -92,6 +91,7 @@ function removeStars() {
     } else if (actualMoves === 30) {
       stars[0].remove();
     }
+
 }
 
 // if cards dont match hide them
@@ -133,8 +133,6 @@ function startTimer() {
 function stopTimer() {
   clearInterval(my_int);
 }
-
-
 
 startTimer();
 
@@ -183,9 +181,11 @@ function endGame () {
   if (numOfmatches == 8) {
               openModal();
               stopTimer();
+              let faStar = document.getElementsByClassName("stars");
               let modalTimer = pad(parseInt(totalSeconds / 60)) + ":" + pad(totalSeconds % 60);
               modalMoves.innerHTML = `<span class="modalMoves">${actualMoves + 1}</span>`;
               modalTime.innerHTML = `<span class="modalTime">${modalTimer}</span>`;
+              
             }
 }
 
@@ -213,6 +213,10 @@ allCards.forEach(function(card) {
             
             numOfmatches += 1;
             endGame();
+            const stars = document.querySelectorAll('.fa-star');
+            modalStars.innerHTML = `<span class="modalStars">${stars.length}</span>`;
+            
+          
 
         } else {
             matchingCards ()
@@ -220,6 +224,7 @@ allCards.forEach(function(card) {
         actualMoves ++;
         moves.innerHTML = `<span class="moves">${actualMoves}</span>`;
         removeStars();
+        
       }
     }
   });

@@ -12,6 +12,7 @@ let actualMoves = 0;
 let numOfmatches = 0;
 let count = 0;
 let isAnimating = false;
+let totalStars = 0;
 
 
 const restart = document.querySelector('.restart');
@@ -26,6 +27,7 @@ const playAgainButton = document.querySelector('.play-again');
 const modalMoves = document.querySelector('.modalMoves');
 const modalTime = document.querySelector('.modalTime');
 const modalStars = document.querySelector('.modalStars');
+const starRating = document.querySelectorAll("stars").innerHTML;
 
 
 // Shuffle function from http://stackoverflow.com/a/2450976
@@ -214,6 +216,8 @@ allCards.forEach(function(card) {
         actualMoves ++;
         moves.innerHTML = `<span class="moves">${actualMoves}</span>`;
         removeStars();
+        document.getElementById("starRating").innerHTML = starRating;
+        console.log(starRating);
       }
     }
   });

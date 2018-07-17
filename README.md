@@ -17,6 +17,7 @@ JavaScript Memory Game where you need to match all duplicate cards in order to c
 * CSS
 * Vanilla JavaScipt
 
+## Game Demo
 
-
+[DEMO](https://poly-g.github.io/memory-game1/)
 

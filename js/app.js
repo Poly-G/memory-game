@@ -181,7 +181,6 @@ function endGame () {
   if (numOfmatches == 8) {
               openModal();
               stopTimer();
-              let faStar = document.getElementsByClassName("stars");
               let modalTimer = pad(parseInt(totalSeconds / 60)) + ":" + pad(totalSeconds % 60);
               modalMoves.innerHTML = `<span class="modalMoves">${actualMoves + 1}</span>`;
               modalTime.innerHTML = `<span class="modalTime">${modalTimer}</span>`;
@@ -191,7 +190,6 @@ function endGame () {
 
 allCards.forEach(function(card) {
   card.addEventListener('click', function(e) {
-
     if (isAnimating == true) {
       return;
     }
